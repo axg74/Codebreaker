@@ -2,7 +2,7 @@
 
 A simple implementation of a board game.
 
-    https://en.wikipedia.org/wiki/Mastermind_(board_game)
+https://en.wikipedia.org/wiki/Mastermind_(board_game)
 
 TODO:
 
