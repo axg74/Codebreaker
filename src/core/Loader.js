@@ -1,5 +1,7 @@
 /**
  * some functions for loading assets like images, JSON-data structures
+ *
+ * TODO: refactoring to a class
  */
 
 const Loader = {

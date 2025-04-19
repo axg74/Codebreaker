@@ -181,6 +181,9 @@ class GameBoard {
         }
     }
 
+    /**
+     * init the image sources for the colored pins and control pins
+     */
     #initImageSources() {
         this.#coloredPinSource = [];
         this.#coloredPinHoverSource = [];
@@ -212,7 +215,7 @@ class GameBoard {
     }
 
     /**
-     * draw an empty pin
+     * draw pin
      *
      * @param {object} source
      * @param {number} x
@@ -226,7 +229,9 @@ class GameBoard {
     }
 
     /**
-     * draw restart button and listen for mouse click
+     * draw the restart button and listen for a mouse click
+     *
+     * TODO: reimplement this in a button manager
      */
     #waitForRestart() {
         const button = {
@@ -270,6 +275,9 @@ class GameBoard {
         }
     }
 
+    /**
+     * Updates the current state of the game and performs necessary actions based on the state.
+     */
     update() {
         switch(this.#state) {
             case this.#state_player:
@@ -462,11 +470,11 @@ class GameBoard {
             this.#state = this.#state_validateColorCode;
 
             if (this.#currentLine <= 0) {
+                // TODO: implement a game over screen
                 console.log("game over")
             }
         }
     }
-
 
     /**
      * validate the entered color code

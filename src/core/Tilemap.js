@@ -1,5 +1,7 @@
 /**
- * tilemap renderer
+ * incomplete tilemap renderer
+ *
+ * NOTE: not used in this project
  */
 
 class Tilemap {

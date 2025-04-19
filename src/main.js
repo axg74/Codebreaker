@@ -2,19 +2,15 @@
  * @GameEngine
  */
 
-import GameBoard from './GameBoard';
 import CanvasRenderer from './core/CanvasRenderer';
 import Loader from './core/Loader';
 import DeltaTime from './core/DeltaTime';
-// import Tilemap from './core/Tilemap';
 import Keyboard from './core/KeyboardInput';
-import SpritePool from './core/SpritePool';
 
 /**
  * @UserImplementation
  */
-// import Player from './sprites/Player';
-// import PlayerBullets from './sprites/PlayerBullets';
+import GameBoard from './GameBoard';
 
 const Game = {
     /**
@@ -73,14 +69,6 @@ const Game = {
      */
     init: function() {
         this.gameboard = new GameBoard(this.renderer, this.spriteAtlas);
-
-      //  this.tilemap = new Tilemap(this.gameWidth, this.gameHeight, 16);
-      //  console.log(this.tilemap);
-
-       // Player.init();
-       // this.playerBulletPool = new SpritePool(PlayerBullets, this.spriteSheet, 10);
-
-        // const sprite = this.playerBulletPool.getSprite();
     },
 
     /**
@@ -89,15 +77,7 @@ const Game = {
      * preload game data like image, sounds or JSON
      */
     preload: async function() {
-        // load all graphics
         this.spriteAtlas = await Loader.image('spriteatlas.png');
-
-    //    this.tileSheet = await Loader.image('tiles1.png');
-
-        // load all Tiled tilemaps
-        this.tileMapDataJSON = [];
-    //    this.tileMapDataJSON.push(await Loader.json('maps/1.json'));
-    //    console.log(this.tileMapDataJSON[0]);
     },
 
     /**
@@ -108,19 +88,6 @@ const Game = {
      */
     update: function(dt) {
         this.gameboard.update();
-
-        /*
-        Player.update(dt, this.gameWidth, this.gameHeight);
-
-        if(Player.isShooting()) {
-            let bullet = this.playerBulletPool.getSprite();
-            if (typeof bullet !== 'undefined') {
-                bullet.init(Player.sprite.getX() + 16, Player.sprite.getY() + 5);
-            }
-        }
-
-        this.playerBulletPool.update(dt, this.gameWidth, this.gameHeight);
-         */
     },
     
     /**
@@ -130,13 +97,6 @@ const Game = {
      */
     draw: function() {
         this.renderer.cls('#050');
-//        this.renderer.drawTileGrid(this.tilemap.tileSize);
- //       this.tilemap.draw();
-
-        // draw all sprites
-    //    this.playerBulletPool.draw(this.renderer);
-    //    this.renderer.drawSprite(Player.sprite, this.spriteSheet);
-
         this.gameboard.draw();
         this.renderer.present();
     },
@@ -171,7 +131,7 @@ const Game = {
         /**
          * @UserImplementation
          * 
-         * init game specific things
+         * init game-specific stuff
          */
         this.init();
 

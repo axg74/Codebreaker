@@ -1,3 +1,7 @@
+/**
+ * delta time logic
+ */
+
 class DeltaTime  {
     constructor() {
         this.lastDeltaTime = performance.now();

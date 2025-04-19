@@ -1,3 +1,8 @@
+/**
+ * simple keyboard input manager
+ *
+ * TODO: refactoring to a class
+ */
 const KeyboardInput = {
     key: {
         left: false,

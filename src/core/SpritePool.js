@@ -1,5 +1,7 @@
 /**
- * sprite pooling manager
+ * simple sprite pooling manager
+ *
+ * NOTE: not used in this project
  */
 
 import CanvasRenderer from "./CanvasRenderer";

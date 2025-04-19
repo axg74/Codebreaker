@@ -1,5 +1,7 @@
 /**
- * sprite class implementation
+ * simple sprite class implementation
+ *
+ * NOTE: not used in this project
  */
 
 class Sprite {

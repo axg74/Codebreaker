@@ -1,5 +1,7 @@
 /**
  * this class provides methods for HTML5 canvas rendering
+ *
+ * TODO: refactoring to a class
  */
 
 import Util from './Util';
