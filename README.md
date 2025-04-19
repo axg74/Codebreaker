@@ -1,5 +1,17 @@
 # Codebreaker game
 
+A simple implementation of a board game.
+
+    https://en.wikipedia.org/wiki/Mastermind_(board_game)
+
+TODO:
+
+    * screen manager class
+    * some kind of computer-ai
+    * title screen
+    * win, game over message
+
+
 NodeJS must be installed on your machine.
 
 Use your favourite IDE.
