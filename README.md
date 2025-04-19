@@ -1,11 +1,23 @@
 # Codebreaker game
 
-# create ViteJS project
+NodeJS must be installed on your machine.
 
-NodeJS must be installed.
+Use your favourite IDE.
 
+### create an empty ViteJS project
 
     npm create vite@latest
+
+follow the instructions.
+
+### cloning this git repo and run the code
+
+Clone this repository to your machine via SSH
+
+    git clone git@github.com:axg74/Codebreaker.git
+    cd Codebreaker
+
+    # install ViteJS depedencies
     npm run install
 
 
@@ -13,3 +25,9 @@ NodeJS must be installed.
 
     npm run dev
     npm run build
+
+
+## game assets (public folder)
+
+    assets/     ... css style sheet
+    assets/img  ... for game data like graphics
