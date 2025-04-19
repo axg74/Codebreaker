@@ -1,2 +1,8 @@
-# Codebreaker
-A mini game in JavaScript
+# Codebreaker game
+
+# create ViteJS project
+
+NodeJS must be installed.
+
+
+    npm create vite@latest
