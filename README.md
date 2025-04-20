@@ -25,10 +25,16 @@ Clone this repository to your machine via SSH
     npm run install
 
 
-## running or building the game
+## running the game locally
 
     npm run dev
+
+
+## building the game for production
+
     npm run build
+
+After the build process is finished, the game can be found in the dist folder.
 
 
 ## game assets (public folder)
