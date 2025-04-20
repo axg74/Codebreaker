@@ -9,7 +9,7 @@ TODO:
     * screen manager class
     * some kind of computer-ai
     * title screen
-    * win, game over message
+    * lost message
 
 
 NodeJS must be installed on your machine.

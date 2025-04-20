@@ -74,6 +74,7 @@ class GameBoard {
     #state_validateColorCode = 2;
     #state_newGame = 3;
     #state_codeOk = 4;
+    #state_lost = 5;
     /**
      * renderer and sprite atlas dependency injection
      */
@@ -269,12 +270,19 @@ class GameBoard {
         this.#drawColoredPins();
         this.#drawPinsSelector();
 
-        this.#drawLostLabel();
+        switch(this.#state) {
+            case this.#state_codeOk:
+                this.#drawGuessingPins();
+                this.#drawWonLabel();
+                this.#waitForRestart();
+                break;
 
-        if (this.#state === this.#state_codeOk) {
-            this.#drawGuessingPins();
-            this.#waitForRestart();
-        }
+            case this.#state_lost:
+                this.#drawGuessingPins();
+                this.#drawLostLabel();
+                this.#waitForRestart();
+                break;
+            }
     }
 
     /**
@@ -478,8 +486,7 @@ class GameBoard {
             this.#state = this.#state_validateColorCode;
 
             if (this.#currentLine <= 0) {
-                // TODO: implement a game over screen
-                console.log("game over")
+                this.#state = this.#state_lost;
             }
         }
     }
