@@ -25,7 +25,7 @@ Clone this repository to your machine via SSH
     npm run install
 
 
-## running and building the game
+## running or building the game
 
     npm run dev
     npm run build
