@@ -14,12 +14,6 @@ NodeJS must be installed on your machine.
 
 Use your favourite IDE.
 
-### create an empty ViteJS project
-
-    npm create vite@latest
-
-follow the instructions.
-
 ### cloning this git repo and run the code
 
 Clone this repository to your machine via SSH
