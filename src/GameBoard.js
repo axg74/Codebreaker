@@ -269,6 +269,8 @@ class GameBoard {
         this.#drawColoredPins();
         this.#drawPinsSelector();
 
+        this.#drawLostLabel();
+
         if (this.#state === this.#state_codeOk) {
             this.#drawGuessingPins();
             this.#waitForRestart();
@@ -456,7 +458,7 @@ class GameBoard {
      *
      * @param {number} x
      * @param {number} y
-     * @param {number} pin-index
+     * @param {number} pinIndex
      */
     #setPin(x, y, pinIndex) {
         if (x < 0 || y < 0 ||
@@ -508,6 +510,26 @@ class GameBoard {
         }
 
         this.#currentLine--;
+    }
+
+    /**
+     * draw the win label from sprite atlas
+     */
+    #drawWonLabel() {
+        this.#renderer.drawSubImage(this.#spriteAtlas,
+              78, 60,
+            28, 19,
+            120,62);
+    }
+
+    /**
+     * draw the lost label from sprite atlas
+     */
+    #drawLostLabel() {
+        this.#renderer.drawSubImage(this.#spriteAtlas,
+            75, 60,
+            36, 19,
+            152,62);
     }
 }
 
