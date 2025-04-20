@@ -5,7 +5,7 @@
  */
 
 const Loader = {
-    assetsPath: '/assets/',
+    assetsPath: 'assets/',
     imgPath: 'img/',
 
     /**
