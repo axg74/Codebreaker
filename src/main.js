@@ -23,6 +23,13 @@ const Game = {
     gameScale: 4,
 
     /**
+     * @GameEngine
+     * window size
+     */
+    windowWidth: 0,
+    windowHeight: 0,
+
+    /**
      * @RendererImplementation
      */
     renderer: null,
@@ -103,10 +110,38 @@ const Game = {
 
     /**
      * @GameEngine
+     *
+     * init the window
+     */
+    getWindowSize: function() {
+        this.windowWidth = window.innerWidth;
+        this.windowHeight = window.innerHeight;
+    },
+
+    /**
+     * @GameEngine
+     *
+     * calculate the game scale based on the window size
+     */
+    calcGameScale: function() {
+        this.gameScale = Math.floor(this.windowHeight / this.gameHeight) - 1;
+        if (this.gameScale < 1) this.gameScale = 1;
+    },
+
+    /**
+     * @GameEngine
 
     * init the game and start the game loop
      */
     run: async function() {
+        /**
+         * @GameEngine
+         *
+         * get window size and calculate the game scale
+         */
+        this.getWindowSize();
+        this.calcGameScale();
+
         /**
          * @GameEngine
          * 

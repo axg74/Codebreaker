@@ -9,8 +9,6 @@ TODO:
     * screen manager class
     * some kind of computer-ai
     * title screen
-    * lost message
-
 
 NodeJS must be installed on your machine.
 

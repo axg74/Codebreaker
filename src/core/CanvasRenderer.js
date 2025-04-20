@@ -11,6 +11,9 @@ class CanvasRenderer {
     #mouseY;
     #mouseLeftButton;
 
+    #touchX;
+    #touchY;
+
     constructor(width, height, scale) {
         this._max_canvas_width = 1920;
         this._max_canvas_height = 1080;
@@ -25,7 +28,7 @@ class CanvasRenderer {
         this._offScreenCanvas = this.createCanvas(this._offScreenCanvasId, this._width, this._height);
         this._offScreenCtx = this.get2DCanvasContext(this._offScreenCanvas);
 
-        // create canvas element
+        // get the canvas element
         this._gameCanvasId = 'game_canvas';
         this._ctx = null;
         this._canvas = document.getElementById(this._gameCanvasId);
@@ -34,6 +37,7 @@ class CanvasRenderer {
         this._ctx = this.get2DCanvasContext(this._canvas);
 
         this.#initMouse();
+        this.#initTouch();
     }
 
     cls(clearColorInHex) {
@@ -192,10 +196,30 @@ class CanvasRenderer {
         });
     }
 
+    #initTouch() {
+        this.#touchX = 0;
+        this.#touchY = 0;
+
+        // prevent to select the canvas element
+        this._canvas.addEventListener('touchstart', function(event) {
+            event.preventDefault();
+        });
+
+        this._canvas.addEventListener("touchstart", (event) => {
+            if (event.touches.length === 1) {
+                const touch = event.touches[0];
+
+                const rect = this._canvas.getBoundingClientRect();
+                this.#touchX = Math.floor((touch.clientX - rect.x) / this._scale);
+                this.#touchY = Math.floor((touch.clientY - rect.y) / this._scale);
+            }
+        }, false);
+    }
+
     /**
      * get the mouse position within the canvas
      *
-     * @returns {number} {x, y}
+     * @returns {number} y
      */
     getMouseX() {
         return this.#mouseX;
@@ -204,7 +228,7 @@ class CanvasRenderer {
     /**
      * get the mouse position within the canvas
      *
-     * @returns {number} {x, y}
+     * @returns {number} x
      */
     getMouseY() {
         return this.#mouseY;
@@ -217,6 +241,24 @@ class CanvasRenderer {
      */
     getMouseLeftButton() {
         return this.#mouseLeftButton;
+    }
+
+    /**
+     * get the touch position-x within the canvas
+     *
+     * @returns {number} x
+     */
+    getTouchX() {
+        return this.#touchX;
+    }
+
+    /**
+     * get the touch position-y within the canvas
+     *
+     * @returns {number} y
+     */
+    getTouchY() {
+        return this.#touchY;
     }
 
     /**

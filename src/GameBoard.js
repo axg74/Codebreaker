@@ -329,6 +329,9 @@ class GameBoard {
         const mouseX = this.#renderer.getMouseX();
         const mouseY = this.#renderer.getMouseY();
 
+        const touchX = this.#renderer.getTouchX();
+        const touchY = this.#renderer.getTouchY();
+
         this.#availablePins.forEach( (pin, x) => {
             const xp = (x * (this.#coloredPinSize + 2)) + coloredPinOffsetX;
             source = this.#coloredPinSource[x + 1];
@@ -342,6 +345,13 @@ class GameBoard {
                     source = this.#coloredPinHoverSource[x + 1];
                     this.#currentSelectedColor = x;
                 }
+            }
+
+            if (touchX >= xp && touchX <= xp + this.#coloredPinSize &&
+                touchY >= y && touchY <= y + this.#coloredPinSize) {
+
+                source = this.#coloredPinHoverSource[x + 1];
+                this.#currentSelectedColor = x;
             }
 
             if (this.#currentSelectedColor === x) {
@@ -388,6 +398,9 @@ class GameBoard {
         const mouseX = this.#renderer.getMouseX();
         const mouseY = this.#renderer.getMouseY();
 
+        const touchX = this.#renderer.getTouchX();
+        const touchY = this.#renderer.getTouchY();
+
         for (let y = 0; y < this.#pinCountVertical; y++) {
 
             // draw numbers 1-12 beside the control pins
@@ -425,6 +438,16 @@ class GameBoard {
                         this.#setPin(x, y, this.#currentSelectedColor + 1);
                     }
 
+                    source = this.#coloredPinSource[this.#currentSelectedColor + 1];
+                }
+
+                // check for touch
+                if (y === this.#currentLine &&
+                    touchX >= xpc && touchY >= ypc &&
+                    touchX <= xpc + this.#coloredPinSize && touchY <= ypc + this.#coloredPinSize
+                ) {
+                    // set pin on the game board
+                    this.#setPin(x, y, this.#currentSelectedColor + 1);
                     source = this.#coloredPinSource[this.#currentSelectedColor + 1];
                 }
 
