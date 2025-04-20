@@ -43,3 +43,5 @@ Clone this repository to your machine via SSH
 
     assets/     ... css style sheet
     assets/img  ... for game data like graphics
+
+The Cover-Image is generated with gemini.
