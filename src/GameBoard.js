@@ -341,6 +341,12 @@ class GameBoard {
             this.drawPin(source, xp, y);
         });
 
+        // draw text
+        this.#renderer.drawSubImage(this.#spriteAtlas,
+            coloredPinOffsetX + 18, y + 10,
+            36, 5,
+            0, 32);
+
         // draw border
         this.#renderer.drawSubImage(this.#spriteAtlas,
             coloredPinOffsetX - 2, y - 2,
