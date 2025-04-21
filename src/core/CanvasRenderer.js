@@ -118,7 +118,7 @@ class CanvasRenderer {
     present() {
         this._ctx.imageSmoothingEnabled = false;
         this._ctx.drawImage(this._offScreenCanvas, 0, 0, this._width, this._height,
-                            0, 0, this._width * this._scale, this._height * this._scale);        
+                            0,0, this._width * this._scale, this._height * this._scale);
     }
 
     /**

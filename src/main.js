@@ -30,6 +30,15 @@ const Game = {
     windowHeight: 0,
 
     /**
+     * @GameEngine
+     * x&y-offset to center the game on the screen
+     */
+    viewPort: {
+        offsetX: 0,
+        offsetY: 0,
+    },
+
+    /**
      * @RendererImplementation
      */
     renderer: null,
@@ -104,7 +113,7 @@ const Game = {
      */
     draw: function() {
         this.renderer.cls('#050');
-        this.gameboard.draw();
+        this.gameboard.draw(this.viewPort);
         this.renderer.present();
     },
 
@@ -124,13 +133,31 @@ const Game = {
      * calculate the game scale based on the window size
      */
     calcGameScale: function() {
-        this.gameScale = Math.floor(this.windowHeight / this.gameHeight) - 1;
+        this.gameScale = Math.ceil(this.windowWidth / this.gameWidth);
         if (this.gameScale < 1) this.gameScale = 1;
     },
 
     /**
      * @GameEngine
+     * calculate the viewport offset to center the game on the screen
+     */
+    calcViewportOffset: function() {
+        this.viewPort.offsetX = Math.floor((((this.windowWidth - (98 * this.gameScale))) / this.gameScale) / 2);
+        this.viewPort.offsetY = Math.floor((((this.gameHeight * this.gameScale) - this.windowHeight) / this.gameScale) / 2);
+    },
 
+    /**
+     * @GameEngine
+     *
+     */
+    setViewport: function() {
+        this.getWindowSize();
+        this.calcGameScale();
+        this.calcViewportOffset();
+    },
+
+    /**
+     * @GameEngine
     * init the game and start the game loop
      */
     run: async function() {
@@ -139,8 +166,13 @@ const Game = {
          *
          * get window size and calculate the game scale
          */
-        this.getWindowSize();
-        this.calcGameScale();
+        this.setViewport();
+
+        /** add event listener for window resize
+         */
+        window.addEventListener('resize', () => {
+            this.setViewport();
+        });
 
         /**
          * @GameEngine

@@ -234,9 +234,9 @@ class GameBoard {
      *
      * TODO: reimplement this in a button manager
      */
-    #waitForRestart() {
+    #waitForRestart(viewPort) {
         const button = {
-            x:14, y:154,
+            x:32 + viewPort.offsetX, y:2,
             width: 31, height: 16,
             sourceX: 160, sourceY: 0
         };
@@ -263,24 +263,26 @@ class GameBoard {
 
     /**
      * draw the game board
+     *
+     * @param {object} viewPort
      */
-    draw() {
+    draw(viewPort) {
         this.#renderer.setMousePointerToDefault();
 
-        this.#drawColoredPins();
-        this.#drawPinsSelector();
+        this.#drawColoredPins(viewPort);
+        this.#drawPinsSelector(viewPort);
 
         switch(this.#state) {
             case this.#state_codeOk:
-                this.#drawGuessingPins();
-                this.#drawWonLabel();
-                this.#waitForRestart();
+                this.#drawGuessingPins(viewPort);
+                this.#waitForRestart(viewPort);
+                this.#drawWonLabel(viewPort);
                 break;
 
             case this.#state_lost:
-                this.#drawGuessingPins();
-                this.#drawLostLabel();
-                this.#waitForRestart();
+                this.#waitForRestart(viewPort);
+                this.#drawGuessingPins(viewPort);
+                this.#drawLostLabel(viewPort);
                 break;
             }
     }
@@ -301,29 +303,25 @@ class GameBoard {
             case this.#state_newGame:
                 this.#initNewGame();
                 break;
-
-            case this.#state_codeOk:
-//                this.#state = this.#state_newGame;
-                break;
         }
     }
 
     /**
      * draw the pins which the player has to guess
      */
-    #drawGuessingPins() {
+    #drawGuessingPins(viewPort) {
         this.#guessingPins.forEach( (pin, index) => {
-            const xp = (index * (this.#coloredPinSize + 4)) + 64;
-            this.drawPin(this.#coloredPinSource[pin], xp, 12);
+            const xp = (index * (this.#coloredPinSize + 1)) + 46 + viewPort.offsetX;
+            this.drawPin(this.#coloredPinSource[pin], xp, 11);
         });
     }
 
     /**
      * draw the pin selector where the player can pick up a colored pin.
      */
-    #drawPinsSelector() {
+    #drawPinsSelector(viewPort) {
         let source;
-        const coloredPinOffsetX = 54;
+        const coloredPinOffsetX = 12 + viewPort.offsetX;
         const y = 158;
 
         const mouseX = this.#renderer.getMouseX();
@@ -378,7 +376,7 @@ class GameBoard {
      * draws a control pin
      */
     #drawControlPin(x, y, controlPinOffsetX, controlPinOffsetY) {
-        const xp = x * (this.#controlPinSize + 4) + controlPinOffsetX;
+        const xp = x * (this.#controlPinSize + 1) + controlPinOffsetX;
         const yp = y * (this.#coloredPinSize + 2) + controlPinOffsetY + 2;
 
         let pin = this.#validatedData[y][x] + 1;
@@ -390,10 +388,10 @@ class GameBoard {
      * left side the colored pins to check the correctness of the selected pins
      * right side the colored pins which the player sets
      */
-    #drawColoredPins() {
-        const controlPinOffsetX = 16;
-        const coloredPinOffsetX = 64;
-        const coloredPinOffsetY = 24;
+    #drawColoredPins(viewPort) {
+        const controlPinOffsetX = 16 + viewPort.offsetX;
+        const coloredPinOffsetX = 46 + viewPort.offsetX;
+        const coloredPinOffsetY = 22;
 
         const mouseX = this.#renderer.getMouseX();
         const mouseY = this.#renderer.getMouseY();
@@ -409,11 +407,13 @@ class GameBoard {
                 8, 5,
                 Math.abs(y - 11) * 8, 24);
 
+            // draw border (control pins)
             this.#renderer.drawSubImage(this.#spriteAtlas,
                 controlPinOffsetX - 2, coloredPinOffsetY + (y * (this.#controlPinSize + 6)),
                 40, 8,
                 96, 0);
 
+            // draw border (colored pins)
             this.#renderer.drawSubImage(this.#spriteAtlas,
                 coloredPinOffsetX - 2, coloredPinOffsetY + (y * (this.#coloredPinSize + 2)) - 2,
                 59, 11,
@@ -423,7 +423,7 @@ class GameBoard {
                 let source;
 
                 // colored player pins
-                const xpc = x * (this.#coloredPinSize + 4) + coloredPinOffsetX;
+                const xpc = x * (this.#coloredPinSize + 1) + coloredPinOffsetX;
                 const ypc = y * (this.#coloredPinSize + 2) + coloredPinOffsetY;
 
                 // check if the mouse is hovering over a colored pin
@@ -471,14 +471,13 @@ class GameBoard {
 
                 this.drawPin(source, xpc, ypc);
                 this.#drawControlPin(x, y, controlPinOffsetX, coloredPinOffsetY);
-
             }
         }
 
         for (let x = 0; x < this.#pinCountHorizontal; x++) {
             // draw numbers 1-5
             this.#renderer.drawSubImage(this.#spriteAtlas,
-                2 + coloredPinOffsetX + (x * 12), 2 + coloredPinOffsetY + ((this.#controlPinSize + 6) * this.#pinCountVertical),
+                2 + coloredPinOffsetX + (x * 9), 2 + coloredPinOffsetY + ((this.#controlPinSize + 6) * this.#pinCountVertical),
                 8, 5,
                 (4 - x) * 8, 24);
         }
@@ -545,9 +544,9 @@ class GameBoard {
     /**
      * draw the win label from sprite atlas
      */
-    #drawWonLabel() {
+    #drawWonLabel(viewPort) {
         this.#renderer.drawSubImage(this.#spriteAtlas,
-              78, 60,
+              viewPort.offsetX + 54, 60,
             28, 19,
             120,62);
     }
@@ -555,9 +554,9 @@ class GameBoard {
     /**
      * draw the lost label from sprite atlas
      */
-    #drawLostLabel() {
+    #drawLostLabel(viewPort) {
         this.#renderer.drawSubImage(this.#spriteAtlas,
-            75, 60,
+            viewPort.offsetX + 50, 60,
             36, 19,
             152,62);
     }
