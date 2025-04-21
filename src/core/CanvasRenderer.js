@@ -200,13 +200,11 @@ class CanvasRenderer {
         this.#touchX = 0;
         this.#touchY = 0;
 
-        // prevent to select the canvas element
-        this._canvas.addEventListener('touchstart', function(event) {
-            event.preventDefault();
-        });
-
         this._canvas.addEventListener("touchstart", (event) => {
             if (event.touches.length === 1) {
+                event.preventDefault();
+                Util.vibrate(65);
+
                 const touch = event.touches[0];
 
                 const rect = this._canvas.getBoundingClientRect();

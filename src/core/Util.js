@@ -28,6 +28,12 @@ class Util {
     static throwError(errorMessage) {
         throw(Util._errorMessagePrefix + errorMessage);
     }
+
+    static vibrate(duration) {
+        if ('vibrate' in navigator) {
+            navigator.vibrate(duration);
+        }
+    }
 }
 
 export default Util;
