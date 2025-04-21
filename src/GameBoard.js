@@ -234,9 +234,9 @@ class GameBoard {
      *
      * TODO: reimplement this in a button manager
      */
-    #waitForRestart(viewPort) {
+    #waitForRestart() {
         const button = {
-            x:32 + viewPort.offsetX, y:2,
+            x:2, y:2,
             width: 31, height: 16,
             sourceX: 160, sourceY: 0
         };
@@ -250,6 +250,7 @@ class GameBoard {
         const mouseY = this.#renderer.getMouseY();
         const mouseLeftButton = this.#renderer.getMouseLeftButton();
 
+        // check for mouse click
         if (mouseX >= button.x && mouseX <= button.x + button.width &&
             mouseY >= button.y && mouseY <= button.y + button.height) {
 
@@ -258,6 +259,15 @@ class GameBoard {
             if (mouseLeftButton) {
                 this.#initNewGame();
             }
+        }
+
+        // check for touch
+        const touchX = this.#renderer.getTouchX();
+        const touchY = this.#renderer.getTouchY();
+
+        if (touchX >= button.x && touchX <= button.x + button.width &&
+            touchY >= button.y && touchY <= button.y + button.height) {
+            this.#initNewGame();
         }
     }
 
@@ -275,14 +285,14 @@ class GameBoard {
         switch(this.#state) {
             case this.#state_codeOk:
                 this.#drawGuessingPins(viewPort);
-                this.#waitForRestart(viewPort);
                 this.#drawWonLabel(viewPort);
+                this.#waitForRestart();
                 break;
 
             case this.#state_lost:
-                this.#waitForRestart(viewPort);
                 this.#drawGuessingPins(viewPort);
                 this.#drawLostLabel(viewPort);
+                this.#waitForRestart();
                 break;
             }
     }
